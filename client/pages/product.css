@@ -1,89 +1,121 @@
 .product-page {
-    background-color: #0d0221;
     min-height: 100vh;
-    color: white;
+    color: var(--ice);
     font-family: sans-serif;
     padding: 1rem;
     max-width: 400px;
     margin: 0 auto;
-  }
-  
-  /* Header */
-  .header {
+}
+
+/* Header */
+.header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin-bottom: 1rem;
-  }
-  
-  .logo {
+}
+
+.logo {
     font-size: 1.25rem;
     font-weight: bold;
-  }
-  
-  .cart-icon {
+}
+
+.cart-icon {
     font-size: 1.75rem;
-  }
-  
-  /* Card */
-  .product-card {
-    background-color: #1e0541;
-    padding: 1rem;
+}
+
+/* Card */
+.product-card {
+    background-color: var(--siphon);
     border-radius: 1rem;
-    box-shadow: 0 0 20px rgba(0,0,0,0.4);
-  }
-  
-  /* Image */
-  .product-image img {
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+.product-card section {
+    padding: 1rem;
+}
+
+.product-card section:nth-child(odd) {
+    background-color: var(--hemocyanin);
+}
+
+/* Image */
+.product-image img {
     width: 100%;
     border-radius: 0.75rem;
     object-fit: cover;
-  }
-  
-  /* Texts */
-  .product-title {
+}
+
+/* Texts */
+.product-title {
     font-size: 1.5rem;
     font-weight: bold;
-  }
-  
-  .product-subtitle {
+}
+
+.product-subtitle {
     font-size: 0.85rem;
-    color: #bbb;
-  }
-  
-  .product-price {
+    color: var(--purpleHaze);
+}
+
+.product-price {
     font-size: 1.5rem;
-    color: #ff69b4;
+    color: var(--ice);
     margin: 0.5rem 0 1rem;
-  }
-  
-  /* Quantity */
-  .quantity-selector {
+}
+
+/* Quantity */
+.quantity-selector {
     display: flex;
-    align-items: center;
+    justify-content: space-between;
     gap: 1rem;
     margin-bottom: 1rem;
-  }
-  
-  .quantity-selector button {
-    background-color: #6a0dad;
-    color: white;
+}
+
+.quantity-controls {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.quantity-selector button {
+    background-color: var(--sohoLights);
+    color: var(--hemocyanin);
     padding: 0.4rem 0.8rem;
     border: none;
     border-radius: 0.4rem;
     font-size: 1rem;
     cursor: pointer;
-  }
-  
-  .quantity-selector span {
+}
+
+.quantity-controls> :first-child {
+    background-color: var(--plum);
+    color: var(--purpleHaze);
+}
+
+.quantity-selector span {
     font-size: 1.1rem;
-  }
-  
-  /* Add to cart */
-  .add-to-cart {
+    margin: 0 1rem;
+}
+
+
+.quantity * {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.quantity abbr {
+    font-size: 0.5rem;
+}
+
+/* Add to cart */
+.add-to-cart {
     width: 100%;
-    background-color: #ff69b4;
-    color: white;
+    background-color: var(--sohoLights);
+    color: var(--hemocyanin);
     padding: 0.75rem;
     border: none;
     border-radius: 1rem;
@@ -91,57 +123,81 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
     margin-bottom: 1.5rem;
-  }
-  
-  .add-to-cart:hover {
-    background-color: #ff85c1;
-  }
-  
-  /* Sections */
-  .description, .specifications {
+}
+
+.add-to-cart:hover {
+    background-color: var(--plum);
+}
+
+/* Sections */
+.description,
+.specifications {
     margin-bottom: 1rem;
-  }
-  
-  .specifications ul {
+    color: var(--ice);
+}
+
+.specifications ul {
     list-style: none;
     padding-left: 0;
-  }
-  
-  .specifications li {
+}
+
+.specifications li,
+.footer p,
+.description p {
     font-size: 0.9rem;
-    color: #ccc;
+    color: var(--purpleHaze);
     margin-bottom: 0.25rem;
-  }
-  
-  /* Animations */
-  .fade-in {
+}
+
+/* Animations */
+.fade-in {
     animation: fadeIn 0.6s ease-in-out;
-  }
-  
-  .fade-in-delay {
+}
+
+.fade-in-delay {
     animation: fadeIn 0.8s ease-in-out;
-  }
-  
-  .slide-down {
+}
+
+.slide-down {
     animation: slideDown 0.5s ease-out;
-  }
-  
-  .pop-in {
+}
+
+.pop-in {
     animation: popIn 0.5s ease-out;
-  }
-  
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  
-  @keyframes slideDown {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  
-  @keyframes popIn {
-    0% { transform: scale(0.95); opacity: 0; }
-    100% { transform: scale(1); opacity: 1; }
-  }
-  
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes popIn {
+    0% {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}

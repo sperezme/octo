@@ -1,15 +1,21 @@
 import React, { useState } from "react";
-
+import Image from "next/image";
+import Basket from "../public/basket.svg";
 
 const Product: React.FC = () => {
   const [quantity, setQuantity] = useState<number>(1);
+  const [cartItems, setCartItems] = useState<number>(0);
+
   const [isAdded, setIsAdded] = useState<boolean>(false);
 
-  const increaseQuantity = (): void => setQuantity(q => q + 1);
-  const decreaseQuantity = (): void => setQuantity(q => (q > 1 ? q - 1 : 1));
+  const increaseQuantity = (): void => setQuantity(prev => prev + 1);
+  const decreaseQuantity = (): void => setQuantity(prev => (prev > 1 ? prev - 1 : 1));
 
   const handleAddToCart = (): void => {
     setIsAdded(true);
+    // update cart items
+    setCartItems(prev => prev + quantity)
+    // mock API call - optimistically update the cart
     setTimeout(() => setIsAdded(false), 2000);
   };
 
@@ -17,27 +23,31 @@ const Product: React.FC = () => {
     <div className="product-page fade-in">
       <header className="header slide-down">
         <div className="logo">logo</div>
-        <div className="cart-icon">🛒</div>
+        <div className="cart-icon">
+          <span title="Basket items">{cartItems}</span>
+          <Image src={Basket} width="20" height="20" alt="Basket" />
+        </div>
       </header>
 
       <div className="product-card pop-in">
-        <div className="product-image">
-          <img
-            src="/your-product-image.jpg"
-            alt="Product"
-          />
-        </div>
+        <section className="product-card-header">
+          <div className="product-image">
+            <img
+              src="/bulb.png"
+              alt="Product"
+            />
+          </div>
 
-        <h1 className="product-title">Energy Saver</h1>
-        <p className="product-subtitle">25W // Packet of 4</p>
-        <p className="product-price">£12.99</p>
-
-        <div className="quantity-selector">
-          <button onClick={decreaseQuantity}>-</button>
-          <span>{quantity}</span>
-          <button onClick={increaseQuantity}>+</button>
-        </div>
-
+          <h1 className="product-title">Energy Saving light bulb</h1>
+          <p className="product-subtitle">25W // Packet of 4</p>
+          <div className="quantity-selector">
+            <p className="product-price">£12.99</p>
+            <span className="quantity-controls">
+            <button onClick={decreaseQuantity}>-</button>
+            <span className="quantity" title="Current quantity"><abbr>Qty</abbr><span>{quantity}</span></span>
+            <button onClick={increaseQuantity}>+</button></span>
+          </div>
+        </section>
         <button className="add-to-cart" onClick={handleAddToCart}>
           {isAdded ? 'Added!' : 'Add to cart'}
         </button>
@@ -58,6 +68,14 @@ const Product: React.FC = () => {
             <li><strong>Item Model number:</strong> X1234</li>
             <li><strong>Colour:</strong> Cool daylight</li>
           </ul>
+        </section>
+
+
+        <section className="footer fade-in-delay">
+          <p>Octopus Energy Ltd is a company registered in England and Wales.
+            Registered number: 09263424.
+            Registered office 33 Holborn London ECN2HT .
+            Trading office 20-24 Broadwick Street. London W1F BHT.</p>
         </section>
       </div>
     </div>

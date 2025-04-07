@@ -1,4 +1,5 @@
 import Image from 'next/image';
+import React from 'react';
 import Basket from "../public/basket.svg";
 
 const Header = ({ cartItems }: { cartItems: number }) => {

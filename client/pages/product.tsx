@@ -7,9 +7,12 @@ import Header from '../components/header';
 import Footer from '../components/footer';
 import Error from "../components/error";
 import { GetProductResponse, GetProductVariables } from "../types";
+// import { useRenderCount } from "../utils";
 
 
 const ProductPage: React.FC = () => {
+  // useRenderCount("CARD-PAGE");
+  // useRenderCount is a custom hook to track the number of renders for debugging purposes
   const [cartItems, setCartItems] = useState<number>(0);
 
   const handleUpdate = (quantity: number): void => {

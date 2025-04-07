@@ -1,4 +1,4 @@
-import Footer from './footer';
+import React from 'react';
 
 const Layout = ({ children }) => {
   return (

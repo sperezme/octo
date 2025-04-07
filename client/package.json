@@ -2,7 +2,7 @@
   "name": "frontend-code-test",
   "version": "0.1.0",
   "private": true,
-  "license": "MIT", 
+  "license": "MIT",
   "scripts": {
     "dev": "concurrently  \"npm run server\" \"next dev\"",
     "prod": "next build && concurrently  \"npm run server\" \"next start\"",
@@ -11,11 +11,13 @@
     "client": "next dev",
     "server": "yarn run json-graphql-server ../server/db.js --port 3001",
     "lint": "next lint",
-    "test": "jest"
+    "test": "vitest run --config vitest.config.ts",
+    "watch": "vitest watch",
+    "test:ui": "vitest --ui",
+    "coverage": "vitest --coverage"
   },
   "dependencies": {
     "@apollo/client": "^3.13.6",
-    "concurrently": "^9.1.2",
     "graphql": "^15.10.1",
     "graphql-tag": "^2.12.6",
     "next": "12.2.1",
@@ -23,11 +25,13 @@
     "react-dom": "17.0.2"
   },
   "devDependencies": {
-    "@testing-library/jest-dom": "^5.16.4",
+    "concurrently": "^9.1.2",
+    "resize-observer-polyfill": "^1.5.1",
+    "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^12.1.5",
     "eslint": "^8.19.0",
     "eslint-config-next": "^12.2.1",
-    "jest": "^28.1.2",
+    "vitest": "^3.1.1",
     "jest-environment-jsdom": "^28.1.3",
     "json-graphql-server": "^2.3.1",
     "typescript": "^4.7.4"

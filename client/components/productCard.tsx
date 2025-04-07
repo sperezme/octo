@@ -1,12 +1,16 @@
 import React, { useState, memo } from "react";
 import Image from "next/image";
 import { Product } from "../types";
+// import { useRenderCount } from "../utils";
 
 interface ProductProps {
   data: Product;
   handleUpdate: (quantity: number) => void;
 }
+
 const ProductCard: React.FC<ProductProps> = ({ data, handleUpdate }) => {
+  // useRenderCount("CARD");
+  // useRenderCount is a custom hook to track the number of renders for debugging purposes
   const [quantity, setQuantity] = useState<number>(1);
 
   const [isAdded, setIsAdded] = useState<boolean>(false);
@@ -43,12 +47,11 @@ const ProductCard: React.FC<ProductProps> = ({ data, handleUpdate }) => {
       <section className="product-card-header">
         <div className="product-image">
           <Image
-            src={img_url} 
-            alt={`Image of ${name}`} 
-            width={420} 
+            src={img_url}
+            alt={`Image of ${name}`}
+            width={420}
             height={500}
-            sizes="(max-width: 600px) 90vw, 500px" //  different screen sizes (optional)
-            loading="lazy" 
+            loading="lazy"
             layout="intrinsic"
           />
         </div>

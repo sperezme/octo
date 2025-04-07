@@ -1,3 +1,5 @@
+import React from 'react';
+
 const Footer: React.FC = () => {
     return <footer className="footer fade-in-delay">
         <p>Octopus Energy &copy; 2025 Octopus Energy Ltd is a company registered in England and Wales. </p>

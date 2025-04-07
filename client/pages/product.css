@@ -21,7 +21,13 @@
 }
 
 .cart-icon {
-    font-size: 1.75rem;
+    display: flex;
+    align-items: center; 
+}
+
+.cart-icon span{
+    font-size: 1.2rem;
+    padding: 0 5px;
 }
 
 /* Card */

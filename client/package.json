@@ -3,14 +3,18 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "yarn server & next dev",
+    "dev": "concurrently  \"npm run server\" \"next dev\"",
     "build": "next build",
     "start": "next start",
     "client": "next dev",
-    "server": "yarn run json-graphql-server ../server/db.js --p 3001",
+    "server": "yarn run json-graphql-server ../server/db.js --port 3001",
     "test": "jest"
   },
   "dependencies": {
+    "@apollo/client": "^3.13.6",
+    "concurrently": "^9.1.2",
+    "graphql": "^15.10.1",
+    "graphql-tag": "^2.12.6",
     "next": "12.2.1",
     "react": "17.0.2",
     "react-dom": "17.0.2"

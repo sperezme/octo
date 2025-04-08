@@ -2,22 +2,22 @@ import React, { useState } from "react";
 import { useQuery } from '@apollo/client';
 import { GET_PRODUCTS } from '../queries';
 import ProductCard from '../components/productCard';
-import Layout from "../components/layout";
 import Header from '../components/header';
 import Footer from '../components/footer';
 import Error from "../components/error";
 import { GetProductResponse, GetProductVariables } from "../types";
-// import { useRenderCount } from "../utils";
+import { useCart } from "../hooks";
+// import { useRenderCount } from "../hooks";
 
+interface ProductPageProps {
+  updateCart: (quantity: number) => void;
+  cartItems: number;
+}
 
-const ProductPage: React.FC = () => {
+const ProductPage: React.FC<ProductPageProps> = ({updateCart}) => {
   // useRenderCount("CARD-PAGE");
   // useRenderCount is a custom hook to track the number of renders for debugging purposes
-  const [cartItems, setCartItems] = useState<number>(0);
 
-  const handleUpdate = (quantity: number): void => {
-    setCartItems(prev => prev + quantity);
-  }
 
   const { loading, error, data, refetch } = useQuery<GetProductResponse, GetProductVariables>(
     GET_PRODUCTS,
@@ -38,14 +38,9 @@ const ProductPage: React.FC = () => {
   }
 
   return (
-    <Layout>
-      <div className="product-page fade-in">
-        <Header cartItems={cartItems} />
-        <ProductCard data={data.Product} handleUpdate={handleUpdate} />
-        <Footer />
-      </div>
-    </Layout>
-
+    <div className="product-page fade-in">
+      <ProductCard data={data.Product} handleUpdate={updateCart} />
+    </div>
   );
 };
 

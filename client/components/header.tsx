@@ -1,9 +1,10 @@
 import Image from 'next/image';
 import React from 'react';
 import Basket from "../public/basket.svg";
+// import { useRenderCount } from '../hooks';
 
 const Header = ({ cartItems }: { cartItems: number }) => {
-
+  // useRenderCount("==> header");
   return (
     <header className="header slide-down" role="banner" aria-labelledby="header-logo">
       <div className="logo" id="header-logo">

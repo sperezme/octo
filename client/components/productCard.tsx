@@ -1,7 +1,7 @@
 import React, { useState, memo } from "react";
 import Image from "next/image";
 import { Product } from "../types";
-// import { useRenderCount } from "../utils";
+// import { useRenderCount } from "../hooks";
 
 interface ProductProps {
   data: Product;
@@ -20,9 +20,8 @@ const ProductCard: React.FC<ProductProps> = ({ data, handleUpdate }) => {
 
   const handleAddToCart = (): void => {
     setIsAdded(true);
-    // update cart items
     handleUpdate(quantity)
-    // mock API call 
+    // mock API async wait
     setTimeout(() => setIsAdded(false), 2000);
   };
 
@@ -114,6 +113,11 @@ const ProductCard: React.FC<ProductProps> = ({ data, handleUpdate }) => {
           <li><strong>Item Model number:</strong> {model_code}</li>
           <li><strong>Colour:</strong> {colour}</li>
         </ul>
+      </section>
+
+      <section className="footer fade-in-delay">
+        <p>Octopus Energy Ltd is a company registered in England and Wales. </p>
+        <p>Registered number: 09263424. Registered office: UK House, 5th floor, 164-182 Oxford Street, London, W1D 1NN.</p>
       </section>
     </div>
 

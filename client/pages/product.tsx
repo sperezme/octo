@@ -1,12 +1,9 @@
-import React, { useState } from "react";
+import React from "react";
 import { useQuery } from '@apollo/client';
 import { GET_PRODUCTS } from '../queries';
 import ProductCard from '../components/productCard';
-import Header from '../components/header';
-import Footer from '../components/footer';
 import Error from "../components/error";
 import { GetProductResponse, GetProductVariables } from "../types";
-import { useCart } from "../hooks";
 // import { useRenderCount } from "../hooks";
 
 interface ProductPageProps {
@@ -17,7 +14,6 @@ interface ProductPageProps {
 const ProductPage: React.FC<ProductPageProps> = ({updateCart}) => {
   // useRenderCount("CARD-PAGE");
   // useRenderCount is a custom hook to track the number of renders for debugging purposes
-
 
   const { loading, error, data, refetch } = useQuery<GetProductResponse, GetProductVariables>(
     GET_PRODUCTS,

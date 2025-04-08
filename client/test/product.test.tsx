@@ -3,6 +3,8 @@ import React from "react";
 import { MockedProvider } from '@apollo/client/testing';
 import Product from "../pages/product";
 import { GET_PRODUCTS } from "../queries";
+import { vi } from "vitest";
+import Layout from "../components/layout";
 
 const mocks = [
   {
@@ -43,15 +45,24 @@ const errorMocks = [
   },
 ];
 
+const handleUpdate = vi.fn((quantity) => {
+  console.log("Update cart with quantity:", quantity);
+  const currentCart = parseInt(localStorage.getItem('cartItems') || '0', 10);
+  const updatedCart = currentCart + quantity;
+  localStorage.setItem('cartItems', updatedCart.toString());
+});
+
 test("should be trigger and triggers error message", async () => {
-  const { getByText } = render(<MockedProvider mocks={errorMocks} addTypename={false}><Product /></MockedProvider>);
+  const { getByText } = render(<MockedProvider mocks={errorMocks} addTypename={false}><Product updateCart={handleUpdate} cartItems={0} /></MockedProvider>);
 
   await waitForElementToBeRemoved(() => getByText('Loading...'));
   expect(getByText("Error: Something went wrong")).toBeInTheDocument();
 });
 
 test("should be able to increase and decrease product quantity", async () => {
-  const { getByText, getByTitle } = render(<MockedProvider mocks={mocks} addTypename={false}><Product /></MockedProvider>);
+  const { getByText, getByTitle } = render(<MockedProvider mocks={mocks} addTypename={false}>
+    <Product updateCart={handleUpdate} cartItems={0} />
+  </MockedProvider>);
 
   await waitForElementToBeRemoved(() => getByText('Loading...'));
   const increaseQuantity = getByText("+");
@@ -69,21 +80,31 @@ test("should be able to increase and decrease product quantity", async () => {
 });
 
 test("should be able to add items to the basket", async () => {
-  const { getByText, getByTitle } = render(<MockedProvider mocks={mocks} addTypename={false}><Product /></MockedProvider>);
+  localStorage.setItem('cartItems', '0'); // Assume cart starts with 0 items
+  let localStorageItem = Number(localStorage.getItem('cartItems'));
+  const { getByText, getByTitle, rerender } = render(<MockedProvider mocks={mocks} addTypename={false}>
+    <Layout cartItems={localStorageItem}>
+      <Product updateCart={handleUpdate} cartItems={localStorageItem} />
+    </Layout>
+  </MockedProvider>);
 
   await waitForElementToBeRemoved(() => getByText('Loading...'));
   const increaseQuantity = getByText("+");
+  fireEvent.click(increaseQuantity);
+  fireEvent.click(increaseQuantity);
+  fireEvent.click(increaseQuantity);
 
   const currentQuantity = getByTitle("Current quantity");
-
-  fireEvent.click(increaseQuantity);
-  fireEvent.click(increaseQuantity);
-  fireEvent.click(increaseQuantity);
-
   expect(currentQuantity).toHaveTextContent("4");
-
+  
   const addToBasketElement = getByText("Add to cart");
   fireEvent.click(addToBasketElement);
+
+  rerender(<MockedProvider mocks={mocks} addTypename={false}>
+    <Layout cartItems={Number(localStorage.getItem('cartItems'))}>
+      <Product updateCart={() => handleUpdate(currentQuantity)} cartItems={Number(localStorage.getItem('cartItems'))} />
+    </Layout>
+  </MockedProvider>);
 
   const basketItems = getByTitle("Basket items");
   expect(basketItems).toHaveTextContent("4");

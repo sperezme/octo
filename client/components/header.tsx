@@ -3,7 +3,6 @@ import React from 'react';
 import Basket from "../public/basket.svg";
 
 const Header = ({ cartItems }: { cartItems: number }) => {
-
   return (
     <header className="header slide-down" role="banner" aria-labelledby="header-logo">
       <div className="logo" id="header-logo">

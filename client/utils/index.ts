@@ -1,11 +1,3 @@
-import { useRef } from "react";
-
-export function useRenderCount(componentName: string) {
-  const renders = useRef(1);
-  console.log(`${componentName} renders count:
-  ${renders.current++}`);
-}
-
 export const sanitizeString = (input: string): string => {
   // Remove non-alphanumeric characters, for example
   return input.replace(/[^a-zA-Z0-9 ]/g, '').trim();

@@ -12,6 +12,7 @@ expect.extend(matchers);
 beforeAll(() => {});
 afterEach(() => {
   cleanup;
+  localStorage.clear();
   vi.clearAllMocks();
   vi.resetAllMocks();
   vi.restoreAllMocks();

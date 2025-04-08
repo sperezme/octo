@@ -1,4 +1,4 @@
-import { render, fireEvent, waitFor, waitForElementToBeRemoved } from "@testing-library/react";
+import { render, fireEvent, waitForElementToBeRemoved } from "@testing-library/react";
 import React from "react";
 import { MockedProvider } from '@apollo/client/testing';
 import Product from "../pages/product";
@@ -53,7 +53,9 @@ const handleUpdate = vi.fn((quantity) => {
 });
 
 test("should be trigger and triggers error message", async () => {
-  const { getByText } = render(<MockedProvider mocks={errorMocks} addTypename={false}><Product updateCart={handleUpdate} cartItems={0} /></MockedProvider>);
+  const { getByText } = render(<MockedProvider mocks={errorMocks} addTypename={false}>
+    <Product updateCart={handleUpdate} cartItems={0} />
+  </MockedProvider>);
 
   await waitForElementToBeRemoved(() => getByText('Loading...'));
   expect(getByText("Error: Something went wrong")).toBeInTheDocument();
@@ -96,7 +98,7 @@ test("should be able to add items to the basket", async () => {
 
   const currentQuantity = getByTitle("Current quantity");
   expect(currentQuantity).toHaveTextContent("4");
-  
+
   const addToBasketElement = getByText("Add to cart");
   fireEvent.click(addToBasketElement);
 

@@ -47,8 +47,7 @@ const ProductCard: React.FC<ProductProps> = ({ data, handleUpdate }) => {
             alt={`Image of ${name}`}
             width={420}
             height={500}
-            loading="lazy"
-            layout="intrinsic"
+            priority
           />
         </div>
 

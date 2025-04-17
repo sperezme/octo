@@ -1,3 +1,5 @@
+import { z } from "zod";
+import { GetProductsResponseSchema } from "../queries";
 
 export interface Product {
   id: string;
@@ -23,3 +25,5 @@ export interface GetProductResponse {
 export interface GetProductVariables {
   id: string;
 }
+
+export type GetProductsResponse = z.infer<typeof GetProductsResponseSchema>;

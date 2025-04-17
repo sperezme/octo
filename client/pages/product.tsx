@@ -1,6 +1,6 @@
 import React from "react";
 import { useQuery } from '@apollo/client';
-import { GET_PRODUCTS } from '../queries';
+import { GET_PRODUCTS, GetProductsResponseSchema } from '../queries';
 import ProductCard from '../components/productCard';
 import Error from "../components/error";
 import { GetProductResponse, GetProductVariables } from "../types";
@@ -10,7 +10,10 @@ interface ProductPageProps {
   cartItems: number;
 }
 
-const ProductPage: React.FC<ProductPageProps> = ({updateCart}) => {
+const ProductPage: React.FC<ProductPageProps> = ({ updateCart }) => {
+  const handleRetry = () => {
+    refetch(); // the query uses the same variables that it used in its previous execution.
+  };
 
   const { loading, error, data, refetch } = useQuery<GetProductResponse, GetProductVariables>(
     GET_PRODUCTS,
@@ -20,21 +23,23 @@ const ProductPage: React.FC<ProductPageProps> = ({updateCart}) => {
     }
   );
 
-  const handleRetry = () => {
-    refetch(); // the query uses the same variables that it used in its previous execution.
-  };
+  const result = GetProductsResponseSchema.safeParse(data);
 
   if (loading) return <p>Loading...</p>;
-  if (error) {
+  if (error || !result.success) {
     console.error('Error fetching product:', error);
     return <Error error={error} handleRetry={handleRetry} />;
   }
+  else {
 
-  return (
-    <div className="product-page fade-in">
-      <ProductCard data={data.Product} handleUpdate={updateCart} />
-    </div>
-  );
+    const product = data.Product;
+
+    return (
+      <div className="product-page fade-in">
+        <ProductCard data={product} handleUpdate={updateCart} />
+      </div>
+    );
+  }
 };
 
 export default ProductPage;

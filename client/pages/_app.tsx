@@ -1,11 +1,10 @@
 import { AppProps } from 'next/app'
 import { ApolloProvider } from '@apollo/client';
-import { useCart } from '../hooks';
-import "../styles/globals.css";
-import './product.css';
+import { ErrorBoundary } from '../components/errorBoundary';
 import { initializeApollo } from '../apolloClient';
+import { useCart } from '../hooks';
 import Layout from "../components/layout";
-import '../styles/globals.css';
+import './product.css';
 
 const apolloClient = initializeApollo();
 
@@ -17,11 +16,13 @@ function MyApp({ Component, pageProps }: AppProps) {
   }
 
   return (
-    <ApolloProvider client={apolloClient}>
-      <Layout cartItems={cartItems}>
-        <Component {...pageProps} updateCart={handleUpdate} />
-      </Layout>
-    </ApolloProvider>
+    <ErrorBoundary>
+      <ApolloProvider client={apolloClient}>
+        <Layout cartItems={cartItems}>
+          <Component {...pageProps} updateCart={handleUpdate} />
+        </Layout>
+      </ApolloProvider>
+    </ErrorBoundary>
   );
 }
 

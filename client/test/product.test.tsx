@@ -84,7 +84,7 @@ test("should be able to add items to the basket", async () => {
   localStorage.setItem('cartItems', '0'); // Assume cart starts with 0 items
   let localStorageItem = Number(localStorage.getItem('cartItems'));
   const { getByText, getByTitle, rerender } = render(<MockedProvider mocks={mocks} addTypename={false}>
-    <Layout cartItems={localStorageItem}>
+    <Layout cartItems={localStorageItem} clearCart={() => {}}>
       <Product updateCart={handleUpdate} cartItems={localStorageItem} />
     </Layout>
   </MockedProvider>);
@@ -102,7 +102,7 @@ test("should be able to add items to the basket", async () => {
   fireEvent.click(addToBasketElement);
 
   rerender(<MockedProvider mocks={mocks} addTypename={false}>
-    <Layout cartItems={Number(localStorage.getItem('cartItems'))}>
+    <Layout cartItems={Number(localStorage.getItem('cartItems'))} clearCart={() => {}}>
       <Product updateCart={() => handleUpdate(currentQuantity)} cartItems={Number(localStorage.getItem('cartItems'))} />
     </Layout>
   </MockedProvider>);

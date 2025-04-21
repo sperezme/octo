@@ -1,9 +1,9 @@
 import React, { useState, memo } from "react";
 import Image from "next/image";
-import { Product } from "../types";
+import { GetProductsResponse } from "../types";
 
 interface ProductProps {
-  data: Product;
+  data: GetProductsResponse;
   handleUpdate: (quantity: number) => void;
 }
 
@@ -35,7 +35,7 @@ const ProductCard: React.FC<ProductProps> = ({ data, handleUpdate }) => {
     length,
     model_code,
     colour,
-    img_url } = data;
+    img_url } = data.Product;
 
   return (
 

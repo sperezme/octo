@@ -9,17 +9,13 @@ import './product.css';
 const apolloClient = initializeApollo();
 
 function MyApp({ Component, pageProps }: AppProps) {
-  const { cartItems, updateCart } = useCart();
-
-  const handleUpdate = (quantity: number): void => {
-    updateCart(quantity);
-  }
+  const { cartItems, updateCart, clearCart } = useCart();
 
   return (
     <ErrorBoundary>
       <ApolloProvider client={apolloClient}>
-        <Layout cartItems={cartItems}>
-          <Component {...pageProps} updateCart={handleUpdate} />
+        <Layout cartItems={cartItems} clearCart={clearCart}>
+          <Component {...pageProps} updateCart={updateCart} />
         </Layout>
       </ApolloProvider>
     </ErrorBoundary>

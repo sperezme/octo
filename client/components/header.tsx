@@ -3,7 +3,7 @@ import React from 'react';
 import Basket from "../public/basket.svg";
 import ClientOnly from './clientOnly';
 
-const Header = ({ cartItems }: { cartItems: number }) => {
+const Header = ({ cartItems, clearCart }: { cartItems: number, clearCart: () => void; }) => {
   return (
     <header className="header slide-down" role="banner" aria-labelledby="header-logo">
       <div className="logo" id="header-logo">
@@ -17,12 +17,12 @@ const Header = ({ cartItems }: { cartItems: number }) => {
         />
       </div>
 
-      <div className="cart-icon" aria-live="polite">
-      <ClientOnly>
-        <span title="Basket items" aria-label={`You have ${cartItems} item(s) in your basket`}>
-          {cartItems}
-        </span>
-      </ClientOnly>
+      <div className="cart-icon" aria-live="polite" onClick={clearCart}>
+        <ClientOnly>
+          <span title="Basket items" aria-label={`You have ${cartItems} item(s) in your basket`}>
+            {cartItems}
+          </span>
+        </ClientOnly>
         <Image
           src={Basket}
           width={20}

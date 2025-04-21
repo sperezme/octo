@@ -17,7 +17,7 @@ const Header = ({ cartItems, clearCart }: { cartItems: number, clearCart: () => 
         />
       </div>
 
-      <div className="cart-icon" aria-live="polite" onClick={clearCart}>
+      <div className="cart-icon" aria-live="polite" onClick={clearCart} data-testid="cart-icon">
         <ClientOnly>
           <span title="Basket items" aria-label={`You have ${cartItems} item(s) in your basket`}>
             {cartItems}
